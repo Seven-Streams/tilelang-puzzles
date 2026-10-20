@@ -44,6 +44,7 @@ def run_gemm():
     A = rand_torch_tensor((2048, 4096), torch.float16)
     B = rand_torch_tensor((4096, 2048), torch.float16)
     C = gemm(A, B)
+    torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
     C_torch = torch.matmul(A, B)
     print("Check GEMM result: ", torch.allclose(C, C_torch, atol=1e-3))
     print(C.shape)
